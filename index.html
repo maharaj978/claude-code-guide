@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-level="both">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code — Learn it from scratch to power user</title>
+  <meta name="description" content="A hands-on guide to Claude Code — the official terminal CLI. Go from first command to advanced multi-agent workflows, with interactive examples.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Inline SVG favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff6b35'/><text x='7' y='23' font-family='monospace' font-weight='bold' font-size='18' fill='white'>C</text></svg>">
+</head>
+<body>
+<div class="app">
+
+  <!-- ═══════════════════════════════════════════════════════
+       SIDEBAR
+  ═══════════════════════════════════════════════════════ -->
+  <aside class="sidebar" role="navigation" aria-label="Page sections">
+    <div class="sidebar-header">
+      <div class="sidebar-logo" aria-hidden="true">C</div>
+      <div>
+        <div class="sidebar-title">Claude Code</div>
+        <div class="sidebar-subtitle">Interactive Guide</div>
+      </div>
+    </div>
+
+    <ul class="sidebar-nav" role="list">
+      <li><a href="#welcome"><span class="nav-num">01</span> Welcome</a></li>
+      <li><a href="#getting-started" data-level="beginner"><span class="nav-num">02</span> Getting Started</a></li>
+      <li><a href="#three-pillars" data-level="beginner"><span class="nav-num">03</span> The Three Pillars</a></li>
+      <li><a href="#modes"><span class="nav-num">04</span> Modes</a></li>
+      <li><a href="#memory" data-level="beginner"><span class="nav-num">05</span> CLAUDE.md &amp; Memory</a></li>
+      <li><a href="#context"><span class="nav-num">06</span> Context Hygiene</a></li>
+      <li><a href="#extension-types"><span class="nav-num">07</span> Five Extension Types</a></li>
+      <li><a href="#slash-commands"><span class="nav-num">08</span> Slash Commands</a></li>
+      <li><a href="#shortcuts"><span class="nav-num">09</span> Keyboard Shortcuts</a></li>
+      <li><a href="#subagents" data-level="advanced"><span class="nav-num">10</span> Subagents <span class="nav-tag adv">adv</span></a></li>
+      <li><a href="#skills" data-level="advanced"><span class="nav-num">11</span> Skills &amp; Plugins <span class="nav-tag adv">adv</span></a></li>
+      <li><a href="#mcp" data-level="advanced"><span class="nav-num">12</span> MCP Servers <span class="nav-tag adv">adv</span></a></li>
+      <li><a href="#hooks" data-level="advanced"><span class="nav-num">13</span> Hooks &amp; Settings <span class="nav-tag adv">adv</span></a></li>
+      <li><a href="#parallel" data-level="advanced"><span class="nav-num">14</span> Working in Parallel <span class="nav-tag adv">adv</span></a></li>
+      <li><a href="#workflows"><span class="nav-num">15</span> Workflows</a></li>
+      <li><a href="#debugging"><span class="nav-num">16</span> Debugging Claude Code</a></li>
+      <li><a href="#cheatsheet"><span class="nav-num">17</span> Prompting Cheatsheet</a></li>
+      <li><a href="#reference"><span class="nav-num">18</span> Quick Reference</a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      by <a href="https://www.linkedin.com/in/maharajma/" target="_blank" rel="noopener">Maharaj</a>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTENT COLUMN
+  ═══════════════════════════════════════════════════════ -->
+  <div>
+    <!-- Top bar -->
+    <header class="topbar" role="banner">
+      <button class="menu-btn" id="menu-btn" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <span class="cmdk-hint">
+        <kbd>⌘ K</kbd> to search anything
+      </span>
+      <div class="level-toggle" role="group" aria-label="Audience level">
+        <button data-level="beginner" aria-pressed="false">Beginner</button>
+        <button data-level="both" aria-pressed="true">Both</button>
+        <button data-level="advanced" aria-pressed="false">Advanced</button>
+      </div>
+      <button class="icon-btn" id="theme-btn" aria-label="Toggle theme" title="Toggle light/dark mode">☀️</button>
+    </header>
+
+    <div class="main">
+      <article class="content">
+
+        <!-- ─────────────────────────────────────────────────
+             01  WELCOME
+        ───────────────────────────────────────────────── -->
+        <section id="welcome" data-level="both">
+          <div class="hero">
+            <div class="hero-prompt" aria-hidden="true">
+              <span class="arrow">$</span>
+              <span>claude</span>
+            </div>
+            <h1 class="hero-title">Learn Claude Code</h1>
+            <p class="hero-tagline">
+              From your very first command to advanced power-user workflows — an interactive guide for every level. No prior experience needed.
+            </p>
+          </div>
+
+          <h3>What is Claude Code?</h3>
+          <p>Claude Code is Anthropic's official CLI that puts Claude directly in your terminal. Unlike the web chat, it can read and write your files, run commands, search your codebase, and work on multiple tasks in parallel — all without leaving your editor workflow.</p>
+
+          <div class="callout tip">
+            <span class="callout-label">New here?</span>
+            Click <strong>Beginner</strong> in the top-right toggle. The page hides advanced topics and shows only what you need for your first sessions. You can always reveal more by clicking "Show" on any collapsed section.
+          </div>
+
+          <div class="two-col" style="margin-top:1rem">
+            <div class="card">
+              <strong>1. Install</strong>
+              <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+            </div>
+            <div class="card">
+              <strong>2. Login</strong>
+              <pre><code>claude login</code></pre>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:0.5rem">
+            <h3 style="margin-top:0;font-size:0.95rem">How this guide works</h3>
+            <ul style="margin:0;font-size:0.92rem">
+              <li>Use the <strong>Beginner / Both / Advanced</strong> toggle (top right) to set your level.</li>
+              <li>Press <kbd>⌘ K</kbd> (or <kbd>Ctrl K</kbd>) to search any command, shortcut, or section.</li>
+              <li>Every code block has a <strong>Copy</strong> button on hover — paste directly into your terminal.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             02  GETTING STARTED
+        ───────────────────────────────────────────────── -->
+        <section id="getting-started" data-level="beginner">
+          <div class="section-meta beginner"><span class="pip"></span> Beginner</div>
+          <h2>Getting Started</h2>
+
+          <div class="section-body">
+            <h3>Your first 5 minutes</h3>
+            <p>Do this now. Nothing to read first — just follow the steps.</p>
+
+            <div class="card" style="counter-reset:steps">
+              <ol style="margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:0.7rem">
+                <li>Open a terminal and go to any project folder:<br>
+                  <pre style="margin:0.4rem 0 0"><code>cd my-project</code></pre>
+                </li>
+                <li>Start Claude Code:<br>
+                  <pre style="margin:0.4rem 0 0"><code>claude</code></pre>
+                </li>
+                <li>Ask it something simple:<br>
+                  <pre style="margin:0.4rem 0 0"><code>What does this project do?</code></pre>
+                </li>
+                <li>Generate a memory file so Claude always knows your project:<br>
+                  <pre style="margin:0.4rem 0 0"><code>/init</code></pre>
+                </li>
+                <li>Type <code>/help</code> to see all available commands. Done.</li>
+              </ol>
+            </div>
+
+            <div class="callout tip">
+              <span class="callout-label">Worried about safety?</span>
+              Add <code>--permission-mode plan</code> when starting. Claude will show you the full plan and wait for your approval before making any changes.
+              <pre style="margin:0.5rem 0 0"><code>claude --permission-mode plan</code></pre>
+            </div>
+
+            <h3>What happens when you run a command</h3>
+            <p>Claude will sometimes ask permission before acting — for example, before editing a file or running a shell command:</p>
+            <pre><code>Claude wants to run: Bash(npm test)
+Allow? [y]es / [n]o / [A]lways / [N]ever</code></pre>
+            <ul>
+              <li><kbd>y</kbd> — allow this one time</li>
+              <li><kbd>A</kbd> — always allow this type of action for the rest of the session</li>
+              <li><kbd>n</kbd> — deny once (Claude tries a different approach)</li>
+              <li><kbd>N</kbd> — deny and don't ask again this session</li>
+            </ul>
+
+            <h3>Three things to know</h3>
+            <ul>
+              <li><strong>Prompts</strong> — plain English instructions. Be specific: "fix the login bug in @src/auth.ts" works better than "fix the bug".</li>
+              <li><strong>Tools</strong> — Claude's abilities: read files, edit files, run commands, browse URLs. You control which ones it can use.</li>
+              <li><strong>Context</strong> — Claude's session memory. Think of it as a notepad that fills up over time. When it gets too full, use <code>/compact</code> to summarise it, or <code>/clear</code> to start fresh. Claude charges by how much text it processes, so keeping context lean saves money.</li>
+            </ul>
+          </div>
+          <div class="level-stub">
+            <strong>Getting Started</strong> — install, first session, anatomy of a prompt, permissions. <button class="disclosure">Show</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             03  THREE PILLARS
+        ───────────────────────────────────────────────── -->
+        <section id="three-pillars" data-level="beginner">
+          <div class="section-meta beginner"><span class="pip"></span> Beginner</div>
+          <h2>The Three Pillars</h2>
+
+          <div class="section-body">
+            <p>Three concepts explain everything Claude Code does. Once these click, the rest of the guide is just detail.</p>
+
+            <div class="two-col">
+              <div class="card">
+                <h4 style="margin-top:0;color:var(--accent)">1. Prompts</h4>
+                <p>What you type. Plain English works. The more specific, the better.<br><br>
+                Weak: <em>"Fix this"</em><br>
+                Strong: <em>"Fix the null error in <code>@src/auth.ts</code> line 42 without changing the function signature"</em></p>
+              </div>
+              <div class="card">
+                <h4 style="margin-top:0;color:var(--blue)">2. Tools</h4>
+                <p>What Claude can do: read files, edit files, run terminal commands, fetch web pages. You approve each one — either once or for the whole session. Tools are what make Claude Code more powerful than the web chat.</p>
+              </div>
+            </div>
+            <div class="card" style="margin-top:0">
+              <h4 style="margin-top:0;color:var(--green)">3. Modes</h4>
+              <p>How much Claude does before asking you. <strong>Default</strong> asks before each action. <strong>Plan</strong> shows you the whole plan first. <strong>Auto-accept</strong> edits files silently. See the next section — Modes is the most important thing to understand as a beginner.</p>
+            </div>
+          </div>
+          <div class="level-stub">
+            <strong>The Three Pillars</strong> — prompts, tools, modes: the mental model behind everything. <button class="disclosure">Show</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             04  MODES  (fully built — Phase 1 visual proof)
+        ───────────────────────────────────────────────── -->
+        <section id="modes" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Modes</h2>
+
+          <div class="section-body">
+            <p>Modes control how Claude handles permissions. You can change mode at any time — mid-session, per-project, or globally.</p>
+
+            <h3>The four modes</h3>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Mode</th>
+                  <th>Behaviour</th>
+                  <th>Best for</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Default</strong></td>
+                  <td>Asks before each tool call. Safest.</td>
+                  <td>General use, unfamiliar codebases</td>
+                </tr>
+                <tr>
+                  <td><strong>Plan</strong></td>
+                  <td>Claude proposes the full plan first; nothing runs until you approve.</td>
+                  <td>Complex tasks, infrastructure, anything irreversible</td>
+                </tr>
+                <tr>
+                  <td><strong>Auto-accept Edits</strong></td>
+                  <td>File edits run silently; only destructive or network actions ask.</td>
+                  <td>Rapid prototyping, trusted codebases</td>
+                </tr>
+                <tr>
+                  <td><strong>Auto</strong></td>
+                  <td>Claude auto-decides on routine low-risk actions; asks for anything risky.</td>
+                  <td>High-velocity development with some guardrails</td>
+                </tr>
+                <tr>
+                  <td><strong>Don't Ask</strong></td>
+                  <td>Minimal prompts — accepts most actions silently.</td>
+                  <td>Scripted or headless use where you need fewer interruptions</td>
+                </tr>
+                <tr>
+                  <td><strong>Bypass Permissions</strong></td>
+                  <td>No prompts at all. Requires <code>--dangerously-skip-permissions</code> flag.</td>
+                  <td>Sandboxed CI/CD environments only</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>How to switch modes</h3>
+
+            <h4>Keyboard shortcut (fastest)</h4>
+            <p>Press <kbd>Shift</kbd><kbd>Tab</kbd> inside a session to cycle through modes. The current mode is shown in the status line.</p>
+
+            <h4>CLI flag (per-session)</h4>
+            <pre><code>claude --permission-mode plan           # start in plan mode
+claude --permission-mode acceptEdits   # start with auto-accept edits</code></pre>
+
+            <h4>settings.json (persist as default)</h4>
+            <pre><code># ~/.claude/settings.json
+{
+  "defaultMode": "plan"
+}</code></pre>
+
+            <h3>Plan mode in depth</h3>
+            <p>Plan mode is the single highest-leverage habit for new users. When active:</p>
+            <ol>
+              <li>Claude analyses your request fully.</li>
+              <li>It writes out a step-by-step plan of <em>what it intends to do</em>.</li>
+              <li>You review the plan. Edit it, reject it, or approve with <kbd>Enter</kbd>.</li>
+              <li>Claude executes the plan step by step. Individual tool calls may still ask for permission depending on your settings — plan mode controls <em>when Claude starts</em>, not whether each step is automatic.</li>
+            </ol>
+
+            <div class="callout">
+              <span class="callout-label">When to use plan mode</span>
+              Any task where a mistake would be hard to reverse: migrations, deletions, deploy scripts, large refactors, or anything touching shared infrastructure.
+            </div>
+
+            <h3>Auto-accept Edits mode</h3>
+            <p>Claude edits your files without asking, but still asks before running shell commands or making network requests. Good for fast iteration once you trust the direction. You can always <kbd>Esc</kbd> to interrupt and use <code>/rewind</code> to undo changes.</p>
+
+            <h3>Bypass mode ⚠</h3>
+            <p>Skips all permission checks. Only use this when Claude Code is running inside a Docker container, CI job, or other sandbox where it literally cannot reach anything sensitive.</p>
+            <pre><code>claude --dangerously-skip-permissions -p "run the test suite"</code></pre>
+
+            <div class="callout danger">
+              <span class="callout-label">Warning</span>
+              Never run bypass mode on your local machine against a real codebase or credentials.
+            </div>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             05  CLAUDE.MD & MEMORY
+        ───────────────────────────────────────────────── -->
+        <section id="memory" data-level="beginner">
+          <div class="section-meta beginner"><span class="pip"></span> Beginner</div>
+          <h2>CLAUDE.md &amp; Memory</h2>
+
+          <div class="section-body">
+            <p>CLAUDE.md is a Markdown file that Claude reads automatically at the start of every session. It's your persistent prompt — the place to put everything Claude should always know about your project.</p>
+
+            <h3>The three memory files</h3>
+            <table>
+              <thead><tr><th>File</th><th>Scope</th><th>Best for</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><code>.claude/CLAUDE.md</code></td>
+                  <td>This project</td>
+                  <td>Architecture, conventions, commands, do/don't rules for this repo</td>
+                </tr>
+                <tr>
+                  <td><code>~/.claude/CLAUDE.md</code></td>
+                  <td>All your projects</td>
+                  <td>Personal style preferences, global rules, preferred libraries</td>
+                </tr>
+                <tr>
+                  <td>Enterprise CLAUDE.md</td>
+                  <td>Whole org (managed)</td>
+                  <td>Company security policies, approved tooling, naming standards</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>What to put in CLAUDE.md</h3>
+            <pre><code># My Project
+
+## Architecture
+- Backend: Node 20 + Express
+- Frontend: React + TypeScript (strict mode)
+- Database: PostgreSQL via Prisma
+
+## Coding standards
+- 2-space indentation
+- Prefer `const` over `let`
+- All async functions must have explicit error handling
+- No `any` types
+
+## Key commands
+- `npm run dev` — start dev server
+- `npm test` — run Jest tests
+- `npm run db:migrate` — run Prisma migrations
+
+## Important
+- Never commit .env files
+- The /api/auth route is read-only — don't modify it</code></pre>
+
+            <h3>Session memory: the # prefix</h3>
+            <p>To add a temporary note <em>just for this session</em>, prefix your message with <code>#</code>:</p>
+            <pre><code># The auth module uses JWT, not sessions — don't add cookie logic</code></pre>
+            <p>Claude will remember this for the rest of the session. It's forgotten on <code>/clear</code> or session exit — it doesn't write to any file.</p>
+
+            <h3>The /memory command</h3>
+            <p>Type <code>/memory</code> in a session to view and edit the CLAUDE.md files that are currently loaded. Useful for checking what Claude actually knows at any point.</p>
+
+            <div class="callout tip">
+              <span class="callout-label">Tip</span>
+              If Claude keeps making the same mistake, add a rule to CLAUDE.md. It's faster than re-explaining every session.
+            </div>
+          </div>
+          <div class="level-stub">
+            <strong>CLAUDE.md &amp; Memory</strong> — your persistent prompt, the <code>#</code> shortcut, and <code>/memory</code>. <button class="disclosure">Show</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             06  CONTEXT HYGIENE
+        ───────────────────────────────────────────────── -->
+        <section id="context" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Context Hygiene</h2>
+
+          <div class="section-body">
+            <p>Think of each Claude session as a limited notepad. As the conversation grows, that notepad fills up — making responses slower, more expensive (Claude charges by the amount of text it processes), and eventually less accurate. Keeping it lean is one of the highest-leverage habits.</p>
+
+            <h3>/clear vs /compact vs /resume</h3>
+            <table>
+              <thead><tr><th>Command</th><th>What it does</th><th>When to use</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><code>/clear</code></td>
+                  <td>Wipes the entire conversation. Fresh start.</td>
+                  <td>Switching to a completely unrelated task</td>
+                </tr>
+                <tr>
+                  <td><code>/compact</code></td>
+                  <td>Summarises the conversation to a compressed form, preserving the key decisions and context.</td>
+                  <td>Long session, same task — want to continue without losing thread</td>
+                </tr>
+                <tr>
+                  <td><code>/resume</code></td>
+                  <td>Opens a prior session (by date/name). Context is restored from where you left off.</td>
+                  <td>Coming back to yesterday's work</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>Signs your context is "poisoned"</h3>
+            <ul>
+              <li>Claude keeps referencing a decision you changed 10 messages ago.</li>
+              <li>It contradicts itself on a simple fact.</li>
+              <li>It's giving longer and vaguer answers than usual.</li>
+              <li>It starts hallucinating file contents you know are wrong.</li>
+            </ul>
+            <p>When you see these: <code>/compact</code> first (preserves continuity), then <code>/clear</code> if that doesn't help.</p>
+
+            <h3>Cost awareness: @file beats pasting</h3>
+            <p>Pasting a 500-line file into every message is expensive — it fills the context quickly. Instead, reference it by path:</p>
+            <pre><code>@src/auth.ts fix the JWT expiry bug</code></pre>
+            <p>Claude reads the file via the Read tool — so the content is in the session once, not copied into your message text. The saving is that you don't bloat your message with raw code on every turn. Check the current session cost with <code>/cost</code>.</p>
+
+            <div class="callout info">
+              <span class="callout-label">Rule of thumb</span>
+              Use <code>/compact</code> when you want to keep working on the same thing. Use <code>/clear</code> when you're done and starting something new.
+            </div>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             07  FIVE EXTENSION TYPES
+        ───────────────────────────────────────────────── -->
+        <section id="extension-types" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>The Five Extension Types</h2>
+
+          <div class="section-body">
+            <p>Five different ways to extend Claude Code. They all make Claude do more — but each one is for a different job. If you're ever unsure which to reach for, this table is the answer:</p>
+
+            <table class="types-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>What it is</th>
+                  <th>How you invoke it</th>
+                  <th>When to reach for it</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Slash command</td>
+                  <td>Built-in Claude Code capability (e.g. <code>/clear</code>, <code>/compact</code>)</td>
+                  <td>Type <code>/name</code> in session</td>
+                  <td>Session control, navigation, built-in workflows</td>
+                </tr>
+                <tr>
+                  <td>Skill</td>
+                  <td>A reusable prompt packaged in a <code>SKILL.md</code> file you or a plugin provides</td>
+                  <td>Type <code>/skill-name</code> in session</td>
+                  <td>You run the same complex prompt 3+ times — package it once</td>
+                </tr>
+                <tr>
+                  <td>Subagent</td>
+                  <td>A separate Claude instance that runs in parallel or in isolation</td>
+                  <td>Ask Claude to "use the Explore agent" or dispatch via Agent tool</td>
+                  <td>Heavy read-only investigation; parallel independent work; isolated context</td>
+                </tr>
+                <tr>
+                  <td>MCP server</td>
+                  <td>An external process that exposes custom tools Claude can call (Jira, Slack, your API…)</td>
+                  <td><code>claude mcp add …</code> then tools appear automatically</td>
+                  <td>You need Claude to interact with an external system or data source</td>
+                </tr>
+                <tr>
+                  <td>Hook</td>
+                  <td>A shell script that runs automatically on a lifecycle event (before a tool, after a tool, on session start…)</td>
+                  <td>Configure in <code>settings.json</code> — runs automatically</td>
+                  <td>Automation, logging, enforcement, injecting context silently</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="callout">
+              <span class="callout-label">Quick decision rule</span>
+              <strong>/command</strong> for built-in session control → <strong>skill</strong> for your own reusable prompt → <strong>subagent</strong> for isolated/parallel work → <strong>MCP</strong> for external tools and APIs → <strong>hook</strong> for silent background automation.
+            </div>
+
+            <p>Sections 10–13 go deep on each. Or try the <a href="#quiz-section">"Which tool for the job?" quiz</a> at the bottom of the page.</p>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             08  SLASH COMMANDS
+        ───────────────────────────────────────────────── -->
+        <section id="slash-commands" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Slash Commands</h2>
+
+          <div class="section-body">
+            <p>Slash commands are built-in session controls. Type them at the start of a prompt in any active session. Tab-completion works for all of them.</p>
+
+            <h3>Essential commands (beginner)</h3>
+            <table class="table-compact">
+              <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-cmd="/help"><td>/help</td><td class="cmd-desc">List all slash commands. Add a command name for details: <code>/help compact</code>.</td></tr>
+                <tr data-cmd="/clear"><td>/clear</td><td class="cmd-desc">Clear conversation history. Fresh context, same session settings.</td></tr>
+                <tr data-cmd="/compact"><td>/compact</td><td class="cmd-desc">Summarise the conversation to reduce token usage while keeping continuity. Accepts optional instructions: <code>/compact keep the architecture notes</code>.</td></tr>
+                <tr data-cmd="/init"><td>/init</td><td class="cmd-desc">Analyse the current project and generate an initial <code>CLAUDE.md</code> file with architecture and conventions.</td></tr>
+                <tr data-cmd="/model"><td>/model</td><td class="cmd-desc">Switch the active model mid-session. <code>/model sonnet</code>, <code>/model opus</code>, <code>/model haiku</code>.</td></tr>
+                <tr data-cmd="/memory"><td>/memory</td><td class="cmd-desc">View and edit the CLAUDE.md memory files currently loaded.</td></tr>
+                <tr data-cmd="/resume"><td>/resume</td><td class="cmd-desc">Resume a prior session. Opens a fuzzy picker by default.</td></tr>
+                <tr data-cmd="/cost"><td>/cost</td><td class="cmd-desc">Show the token cost and model usage for the current session.</td></tr>
+                <tr data-cmd="/doctor"><td>/doctor</td><td class="cmd-desc">Run a health check on your Claude Code installation (auth, version, updates).</td></tr>
+                <tr data-cmd="/bug"><td>/bug</td><td class="cmd-desc">Open a pre-filled bug report for Claude Code itself.</td></tr>
+              </tbody>
+            </table>
+
+            <h3 class="adv-section-header">All commands <span class="tag tag-adv">Advanced</span></h3>
+            <div class="adv-content" data-beginner-hide>
+              <table class="table-compact">
+                <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+                <tbody>
+                  <tr data-cmd="/agents" data-level="advanced"><td>/agents</td><td class="cmd-desc">Manage background subagent sessions. See running, completed, and failed agents.</td></tr>
+                  <tr data-cmd="/hooks" data-level="advanced"><td>/hooks</td><td class="cmd-desc">View and manage configured hooks for this session.</td></tr>
+                  <tr data-cmd="/mcp" data-level="advanced"><td>/mcp</td><td class="cmd-desc">List, add, and remove MCP servers. Check server status.</td></tr>
+                  <tr data-cmd="/plugin" data-level="advanced"><td>/plugin</td><td class="cmd-desc">Manage plugins — install, enable, disable, update, discover from marketplace.</td></tr>
+                  <tr data-cmd="/ide" data-level="advanced"><td>/ide</td><td class="cmd-desc">Connect to a running VS Code or JetBrains IDE. Enables two-way file sync and diff rendering.</td></tr>
+                  <tr data-cmd="/permissions" data-level="advanced"><td>/permissions</td><td class="cmd-desc">View and change permission settings for this session.</td></tr>
+                  <tr data-cmd="/review" data-level="advanced"><td>/review</td><td class="cmd-desc">Run a code review on the current diff or specified files.</td></tr>
+                  <tr data-cmd="/pr-comments" data-level="advanced"><td>/pr-comments</td><td class="cmd-desc">Fetch and address comments on the current pull request.</td></tr>
+                  <tr data-cmd="/upgrade" data-level="advanced"><td>/upgrade</td><td class="cmd-desc">Check for Claude Code updates and install them.</td></tr>
+                  <tr data-cmd="/status" data-level="advanced"><td>/status</td><td class="cmd-desc">Show current session status: model, mode, context size, cost.</td></tr>
+                  <tr data-cmd="/terminal-setup" data-level="advanced"><td>/terminal-setup</td><td class="cmd-desc">Optimise terminal rendering and configure keybindings.</td></tr>
+                  <tr data-cmd="/vim" data-level="advanced"><td>/vim</td><td class="cmd-desc">Toggle Vim keybindings in the input prompt.</td></tr>
+                  <tr data-cmd="/export" data-level="advanced"><td>/export</td><td class="cmd-desc">Export the current session transcript to a file.</td></tr>
+                  <tr data-cmd="/add-dir" data-level="advanced"><td>/add-dir &lt;path&gt;</td><td class="cmd-desc">Whitelist an additional directory for Claude to read/write this session.</td></tr>
+                  <tr data-cmd="/login" data-level="advanced"><td>/login</td><td class="cmd-desc">Authenticate or switch accounts.</td></tr>
+                  <tr data-cmd="/logout" data-level="advanced"><td>/logout</td><td class="cmd-desc">Log out and revoke the current token.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             09  KEYBOARD SHORTCUTS
+        ───────────────────────────────────────────────── -->
+        <section id="shortcuts" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Keyboard Shortcuts</h2>
+
+          <div class="section-body">
+            <h3>Navigation &amp; interruption</h3>
+            <table class="table-compact">
+              <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-shortcut="Esc"><td><kbd>Esc</kbd></td><td>Interrupt the current operation and return to the prompt.</td></tr>
+                <tr data-shortcut="Esc Esc"><td><kbd>Esc</kbd> <kbd>Esc</kbd></td><td>Edit the previous message (opens it for re-submission).</td></tr>
+                <tr data-shortcut="Ctrl+C"><td><kbd>Ctrl</kbd><kbd>C</kbd></td><td>Force interrupt. More aggressive than Esc.</td></tr>
+                <tr data-shortcut="Ctrl+D"><td><kbd>Ctrl</kbd><kbd>D</kbd></td><td>Soft exit / end of input.</td></tr>
+                <tr data-shortcut="Shift+Tab"><td><kbd>Shift</kbd><kbd>Tab</kbd></td><td>Cycle through modes: Default → Auto-accept Edits → Plan → Default. Current mode is shown in the status line.</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Input</h3>
+            <table class="table-compact">
+              <thead><tr><th>Key / Prefix</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-shortcut="Shift+Enter"><td><kbd>Shift</kbd><kbd>Enter</kbd> or <kbd>Option</kbd><kbd>Enter</kbd></td><td>Insert a newline without submitting (multi-line prompt).</td></tr>
+                <tr data-shortcut="\ at end"><td><code>\</code> at end of line</td><td>Continue on the next line (backslash-newline).</td></tr>
+                <tr data-shortcut="Tab"><td><kbd>Tab</kbd></td><td>Autocomplete slash commands, file paths, and skill names.</td></tr>
+                <tr data-shortcut="↑ ↓"><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>Cycle through prompt history.</td></tr>
+                <tr data-shortcut="! prefix"><td><code>!</code> prefix</td><td>Run a bash command inline: <code>!ls -la</code>. Output is visible to Claude.</td></tr>
+                <tr data-shortcut="# prefix"><td><code>#</code> prefix</td><td>Add a session-only memory note: <code># auth uses JWT</code>.</td></tr>
+                <tr data-shortcut="@ prefix"><td><code>@</code> prefix</td><td>Reference a file: <code>@src/auth.ts fix the bug</code>. Cheaper than pasting.</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Images &amp; attachments</h3>
+            <table class="table-compact">
+              <thead><tr><th>Action</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-shortcut="Drag and drop"><td>Drag &amp; drop image</td><td>Attach an image directly to the current prompt.</td></tr>
+                <tr data-shortcut="Paste image"><td><kbd>⌘ V</kbd> / <kbd>Ctrl</kbd><kbd>V</kbd></td><td>Paste an image from clipboard into the prompt.</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Session management</h3>
+            <table class="table-compact">
+              <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-shortcut="←←"><td><kbd>←</kbd> <kbd>←</kbd> (double-tap)</td><td>Open the agents view — manage background subagent sessions.</td></tr>
+                <tr data-shortcut="Ctrl+O"><td><kbd>Ctrl</kbd><kbd>O</kbd></td><td>Open the full transcript view with thinking blocks.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             10  SUBAGENTS
+        ───────────────────────────────────────────────── -->
+        <section id="subagents" data-level="advanced">
+          <div class="section-meta advanced"><span class="pip"></span> Advanced</div>
+          <h2>Subagents</h2>
+
+          <div class="section-body">
+            <p>A subagent is like opening a second Claude in another tab — it works independently so your main conversation stays focused. Subagents can run in parallel, use restricted tools, or work in complete isolation. This keeps your main session's memory clean while heavy work happens elsewhere.</p>
+
+            <h3>Built-in agent types</h3>
+            <table>
+              <thead><tr><th>Type</th><th>Tools available</th><th>Best for</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><code>general-purpose</code></td>
+                  <td>All tools</td>
+                  <td>Any isolated task you'd give the main agent</td>
+                </tr>
+                <tr>
+                  <td><code>Explore</code></td>
+                  <td>Read-only (no Edit/Write/Bash)</td>
+                  <td>Investigating a codebase without touching files</td>
+                </tr>
+                <tr>
+                  <td><code>Plan</code></td>
+                  <td>Read-only + planning</td>
+                  <td>Designing an approach without implementing it</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>How to spawn a subagent</h3>
+            <p>Just describe the work in natural language:</p>
+            <pre><code>Use the Explore agent to investigate how authentication is implemented
+in this codebase. I'll work on the UI while you do that.</code></pre>
+            <p>Or dispatch multiple in parallel:</p>
+            <pre><code>Spawn two agents in parallel:
+1. Explore agent: find all places that call the /api/users endpoint
+2. Plan agent: design the schema migration for the new user roles feature</code></pre>
+
+            <h3>Custom agent definitions</h3>
+            <p>Create a file at <code>.claude/agents/my-agent.md</code> or <code>~/.claude/agents/my-agent.md</code>:</p>
+            <pre><code>---
+name: security-reviewer
+description: Reviews code changes for OWASP vulnerabilities and auth issues
+tools: Read, Bash
+model: opus
+color: red
+---
+
+You are a security expert reviewing code for vulnerabilities.
+Focus on: injection, auth bypass, secrets in code, and OWASP Top 10.
+Be terse. List issues with severity (critical/high/medium/low).</code></pre>
+            <p>Then invoke it: <em>"Use the security-reviewer agent on this PR diff."</em></p>
+
+            <h3>When to use subagents</h3>
+            <ul>
+              <li><strong>Heavy read-only investigation</strong> — Explore agent doesn't pollute your main context</li>
+              <li><strong>Parallel independent work</strong> — multiple tasks that don't depend on each other</li>
+              <li><strong>Isolated context</strong> — agent works on one thing; you work on another</li>
+              <li><strong>Specialised personas</strong> — security reviewer, test writer, documentation agent</li>
+            </ul>
+
+            <div class="callout">
+              <span class="callout-label">Rule</span>
+              Don't spawn subagents for simple sequential work. A single agent with a good plan is faster. Use subagents when you'd otherwise be blocked waiting.
+            </div>
+          </div>
+          <div class="level-stub">
+            <strong>Subagents</strong> — parallel Claude instances for isolated or concurrent work. <button class="disclosure">Show advanced</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             11  SKILLS & PLUGINS
+        ───────────────────────────────────────────────── -->
+        <section id="skills" data-level="advanced">
+          <div class="section-meta advanced"><span class="pip"></span> Advanced</div>
+          <h2>Skills &amp; Plugins</h2>
+
+          <div class="section-body">
+            <h3>What is a skill?</h3>
+            <p>A skill is a packaged, reusable prompt. When you invoke <code>/skill-name</code>, Claude loads the skill's instructions and executes them — exactly as if you'd typed out the prompt yourself, but without having to remember it.</p>
+
+            <h3>Creating your own skill</h3>
+            <p>Create <code>~/.claude/skills/my-skill.md</code>:</p>
+            <pre><code>---
+name: my-skill
+description: One-line summary shown in autocomplete
+---
+
+&lt;what-to-do&gt;
+Your full prompt instructions here.
+&lt;/what-to-do&gt;</code></pre>
+            <p>Then invoke it with <code>/my-skill</code> in any session. Tab-completion suggests it automatically.</p>
+
+            <h3>Where skills live</h3>
+            <ul>
+              <li><code>~/.claude/skills/</code> — your personal skills, all sessions</li>
+              <li><code>.claude/skills/</code> — project-scoped skills, this repo only</li>
+              <li><code>~/.claude/plugins/*/skills/</code> — skills shipped with plugins</li>
+            </ul>
+
+            <h3>Plugins: skills + more</h3>
+            <p>A plugin bundles multiple skills, custom agents, MCP servers, and commands into a single installable unit.</p>
+            <pre><code># Install a plugin
+claude plugin install plugin-name@marketplace
+
+# List installed plugins
+claude plugin list
+
+# Discover new plugins
+# Type /plugin > Discover in a session</code></pre>
+
+            <h3>Plugin structure</h3>
+            <pre><code>my-plugin/
+├── .claude-plugin/plugin.json   # metadata
+├── .mcp.json                    # MCP servers (optional)
+├── agents/                      # custom agents (optional)
+├── skills/                      # skills (optional)
+└── README.md</code></pre>
+
+            <div class="callout tip">
+              <span class="callout-label">Tip</span>
+              If you find yourself writing the same complex prompt repeatedly, turn it into a skill. Three repetitions = write the skill.
+            </div>
+          </div>
+          <div class="level-stub">
+            <strong>Skills &amp; Plugins</strong> — packageable prompts you invoke with <code>/skill-name</code>. <button class="disclosure">Show advanced</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             12  MCP SERVERS
+        ───────────────────────────────────────────────── -->
+        <section id="mcp" data-level="advanced">
+          <div class="section-meta advanced"><span class="pip"></span> Advanced</div>
+          <h2>MCP Servers</h2>
+
+          <div class="section-body">
+            <p>MCP (Model Context Protocol) lets you plug Claude into external apps — your Jira, Slack, internal database, or any API. Think of it as installing extensions. A small server process runs alongside Claude and exposes new tools; once connected, Claude can call them in any prompt, naturally, like any built-in capability.</p>
+
+            <h3>Adding an MCP server</h3>
+            <pre><code># Add a local (stdio) server
+claude mcp add my-server -- npx my-mcp-package
+
+# Add an HTTP server
+claude mcp add figma https://mcp.figma.com/mcp
+
+# Add with environment variables
+claude mcp add my-server -e API_KEY=your-key -- npx my-mcp-package
+
+# List all servers
+claude mcp list
+
+# Remove a server
+claude mcp remove my-server</code></pre>
+
+            <h3>Project-scoped config (.mcp.json)</h3>
+            <p>For servers that should be available to everyone on your team, commit a <code>.mcp.json</code> to the project root:</p>
+            <pre><code>{
+  "mcpServers": {
+    "my-server": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["./tools/mcp-server.js"]
+    }
+  }
+}</code></pre>
+
+            <h3>Transport types</h3>
+            <table>
+              <thead><tr><th>Type</th><th>Use when</th></tr></thead>
+              <tbody>
+                <tr><td><code>stdio</code></td><td>Local binary on the same machine (most common)</td></tr>
+                <tr><td><code>http</code></td><td>Remote server over HTTPS</td></tr>
+                <tr><td><code>sse</code></td><td>Stateful remote connection (Server-Sent Events)</td></tr>
+              </tbody>
+            </table>
+
+            <div class="callout warning">
+              <span class="callout-label">Security</span>
+              Only add MCP servers from sources you trust. An MCP server has the same tool access you've granted Claude. A malicious server could exfiltrate context.
+            </div>
+          </div>
+          <div class="level-stub">
+            <strong>MCP Servers</strong> — connect Claude to external tools (Jira, Slack, custom APIs). <button class="disclosure">Show advanced</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             13  HOOKS & SETTINGS
+        ───────────────────────────────────────────────── -->
+        <section id="hooks" data-level="advanced">
+          <div class="section-meta advanced"><span class="pip"></span> Advanced</div>
+          <h2>Hooks &amp; settings.json</h2>
+
+          <div class="section-body">
+            <h3>Settings hierarchy</h3>
+            <p>Settings cascade in this order — later entries override earlier ones:</p>
+            <ol>
+              <li>Enterprise defaults (org-managed)</li>
+              <li><code>~/.claude/settings.json</code> — your user settings</li>
+              <li><code>.claude/settings.json</code> — project settings (commit this)</li>
+              <li><code>.claude/settings.local.json</code> — local overrides (gitignore this)</li>
+              <li>CLI flags on the current session</li>
+            </ol>
+
+            <h3>Key settings fields</h3>
+            <pre><code>// ~/.claude/settings.json
+{
+  "model": "claude-sonnet-4-6",
+  "defaultMode": "plan",
+  "effortLevel": "high",
+  "permissions": {
+    "allow": ["Bash(git *)", "Bash(npm *)", "Read(**)", "Edit(**)"],
+    "deny":  ["Bash(rm -rf *)"],
+    "ask":   ["Bash(curl *)", "WebFetch(*)"]
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}</code></pre>
+
+            <h3>Hooks</h3>
+            <p>Hooks run shell commands automatically on lifecycle events:</p>
+            <table>
+              <thead><tr><th>Event</th><th>Fires when</th></tr></thead>
+              <tbody>
+                <tr><td><code>PreToolUse</code></td><td>Before any tool runs</td></tr>
+                <tr><td><code>PostToolUse</code></td><td>After a tool succeeds</td></tr>
+                <tr><td><code>PostToolUseFailure</code></td><td>After a tool fails</td></tr>
+                <tr><td><code>UserPromptSubmit</code></td><td>When you submit a prompt</td></tr>
+                <tr><td><code>SessionStart</code></td><td>When a session begins</td></tr>
+                <tr><td><code>SessionEnd</code></td><td>When a session ends</td></tr>
+                <tr><td><code>Stop</code></td><td>When you press Esc</td></tr>
+                <tr><td><code>SubagentStop</code></td><td>When a subagent finishes</td></tr>
+              </tbody>
+            </table>
+
+            <h4>Example 1: log every bash command Claude runs</h4>
+            <pre><code>// ~/.claude/settings.json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{
+          "type": "command",
+          "command": "echo \"$(date): $CLAUDE_TOOL_INPUT\" >> ~/claude-bash.log"
+        }]
+      }
+    ]
+  }
+}</code></pre>
+            <p>The hook receives tool information via environment variables (<code>CLAUDE_TOOL_INPUT</code>, <code>CLAUDE_TOOL_OUTPUT</code>, etc.) and can log, validate, or block based on them. A non-zero exit code from the hook blocks the tool call.</p>
+
+            <h4>Example 2: inject current git branch into every prompt</h4>
+            <pre><code>// ~/.claude/settings.json — UserPromptSubmit hook
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [{
+          "type": "command",
+          "command": "echo \"Current branch: $(git branch --show-current 2>/dev/null || echo 'not a git repo')\""
+        }]
+      }
+    ]
+  }
+}</code></pre>
+            <p>Text written to stdout by a <code>UserPromptSubmit</code> hook is prepended to the user's prompt as context — so Claude automatically knows the current branch without you typing it.</p>
+
+            <div class="callout info">
+              <span class="callout-label">Note</span>
+              Hook environment variables and exact stdin/stdout behaviour may vary across Claude Code versions. Check <code>claude --help</code> or the official docs for the current spec before building complex hooks.
+            </div>
+          </div>
+          <div class="level-stub">
+            <strong>Hooks &amp; settings.json</strong> — automate events, configure permissions, inject context. <button class="disclosure">Show advanced</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             14  WORKING IN PARALLEL
+        ───────────────────────────────────────────────── -->
+        <section id="parallel" data-level="advanced">
+          <div class="section-meta advanced"><span class="pip"></span> Advanced</div>
+          <h2>Working in Parallel</h2>
+
+          <div class="section-body">
+            <p>The "3–4 terminal tabs" pattern you've seen online is real, but most people using it are doing it wrong. Here's the exact model and when to use it.</p>
+
+            <h3>First: do you actually need multiple tabs?</h3>
+            <p>A single Claude session dispatching parallel subagents is correct <em>most of the time</em>. You only need multiple terminal tabs when:</p>
+            <ul>
+              <li><strong>Human attention is split</strong> — you want to review/steer one task while another runs</li>
+              <li><strong>Branches diverge</strong> — you're working on two features that shouldn't share file state</li>
+              <li><strong>Long-running background tasks</strong> — a test suite, a build, or a migration that shouldn't block your foreground session</li>
+            </ul>
+
+            <h3>The anti-pattern: 4 tabs on the same files</h3>
+            <div class="callout danger">
+              <span class="callout-label">Anti-pattern</span>
+              Four Claude sessions all editing overlapping files = merge conflicts, lost changes, and inconsistent context. Don't do this.
+            </div>
+
+            <h3>The correct pattern: git worktrees</h3>
+            <p>Each tab works in its own <strong>git worktree</strong> — a separate checkout of the repo on a separate branch. File changes are isolated. Claude sessions have separate <code>.claude/</code> state.</p>
+            <pre><code># Main checkout — feature A
+cd ~/projects/my-app          # Tab 1: claude here
+
+# Create worktree for feature B on its own branch
+git worktree add ../my-app-feat-b feat-b-branch
+cd ../my-app-feat-b           # Tab 2: claude here
+
+# Both run in parallel with no file conflicts</code></pre>
+
+            <h3>The canonical 3-tab pattern</h3>
+
+            <div class="ascii">╔══════════════════════════════════════════════════════════════╗
+║             CANONICAL MULTI-TAB WORKFLOW                     ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║  <span class="hl">TAB 1 — Driver (main checkout)</span>                               ║
+║  • Plan mode                                                 ║
+║  • Review output from other tabs                             ║
+║  • Steer direction, approve plans                            ║
+║                                                              ║
+║  <span class="hl">TAB 2 — Implementer (git worktree, feature branch)</span>           ║
+║  • Auto-accept edits mode                                    ║
+║  • Executes the plan from Tab 1                              ║
+║  • File changes isolated to this worktree                    ║
+║                                                              ║
+║  <span class="hl">TAB 3 — Reviewer / Tester (same or separate worktree)</span>        ║
+║  • Default or plan mode                                      ║
+║  • Runs tests, reviews diffs, /review skill                  ║
+║  • Reports back to Tab 1 for next steps                      ║
+║                                                              ║
+║  <span class="hl">TAB 4 — Background research (optional)</span>                       ║
+║  • Explore agent dispatched from Tab 1                       ║
+║  • Or: `claude -p "..."` for a one-shot                      ║
+║  • Long-running; Tab 1 continues while it works              ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝</div>
+
+            <h3>Session commands for multi-tab work</h3>
+            <pre><code># Resume a prior session by name
+claude --resume "feature-b-implementation"
+
+# Name the current session for easy resumption
+# (set in --name flag or the session shows in /resume list)
+
+# View all running/background sessions
+claude agents
+
+# Run a one-shot in the background and pipe to file
+claude -p "summarise open PRs" --output-format json > pr-summary.json &</code></pre>
+
+            <div class="callout tip">
+              <span class="callout-label">Simpler alternative</span>
+              For most tasks, <code>claude</code> in one tab + "spawn two parallel agents" in your prompt is faster and less error-prone than managing multiple tabs manually.
+            </div>
+          </div>
+          <div class="level-stub">
+            <strong>Working in Parallel</strong> — when to use multiple tabs, the worktree pattern, and the anti-pattern to avoid. <button class="disclosure">Show advanced</button>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             15  WORKFLOWS
+        ───────────────────────────────────────────────── -->
+        <section id="workflows" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Workflows</h2>
+
+          <div class="section-body">
+            <p>Four end-to-end recipes — each with the exact commands and prompts in order.</p>
+
+            <h3>W1. Starting a new project from zero</h3>
+            <p><em>Also works for onboarding onto a legacy codebase — just lean harder on <code>/init</code>.</em></p>
+            <pre><code>cd my-project
+claude
+
+# Step 1: Let Claude understand the project
+/init
+# Claude generates .claude/CLAUDE.md — review and edit it
+
+# Step 2: Switch to plan mode for the first feature
+claude --permission-mode plan
+# or press Shift+Tab until "plan" shows
+
+# Step 3: Describe what you want
+Implement user authentication with JWT.
+Use the existing Express setup in src/server.ts.
+Follow the conventions in CLAUDE.md.
+
+# Claude writes the plan. Review, approve, done.</code></pre>
+
+            <h3>W2. Investigating and fixing a bug</h3>
+            <pre><code># Step 1: Spawn an Explore agent to reproduce the bug in isolation
+Use the Explore agent to investigate the bug in the checkout flow.
+Reproduce the error and find the root cause. Don't edit anything.
+
+# Step 2: While Explore runs, continue in the main session
+# (or switch to plan mode and design the fix)
+
+# Step 3: Apply the fix
+Apply the fix the Explore agent found. Use plan mode.
+Run the tests after.
+
+# Step 4: Verify
+!npm test</code></pre>
+
+            <h3>W3. Resuming a long-running task across days</h3>
+            <pre><code># Day 1: End of session — add a handoff note
+# Before closing: we finished the schema migration.
+# Next: update the API endpoints to use the new user_roles table.
+# Blocked on: need to confirm the JOIN behaviour with @src/db/queries.ts
+
+/compact Keep the schema migration notes and the TODO above
+
+# Day 2: Resume
+claude --resume    # pick the session from the list
+
+# Or if you named it:
+claude --resume "user-roles-migration"
+
+# Your compacted context + the handoff note are there
+# Continue exactly where you left off</code></pre>
+
+            <h3>W4. Headless / CI use</h3>
+            <pre><code># One-shot: no interactive session
+claude -p "Review this diff for security issues" \
+  --output-format json \
+  --permission-mode bypassPermissions \
+  > security-report.json
+
+# Stream results in real time
+claude -p "Run tests and summarise failures" \
+  --output-format stream-json \
+  --include-partial-messages
+
+# In a Makefile or CI step
+review:
+    claude -p "Review changed files in this PR" \
+      --add-dir src \
+      --model sonnet \
+      --output-format json > .ci/review.json</code></pre>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             16  DEBUGGING CLAUDE CODE ITSELF
+        ───────────────────────────────────────────────── -->
+        <section id="debugging" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Debugging Claude Code Itself</h2>
+
+          <div class="section-body">
+            <p>When Claude Code itself is misbehaving — not the code it writes, but the tool itself.</p>
+
+            <h3>Diagnostic checklist</h3>
+            <table>
+              <thead><tr><th>Symptom</th><th>Try this first</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Authentication errors</td>
+                  <td><code>/doctor</code> → then <code>claude login</code></td>
+                </tr>
+                <tr>
+                  <td>Tool calls failing silently</td>
+                  <td><code>claude -d --debug</code> for verbose logs</td>
+                </tr>
+                <tr>
+                  <td>Responses getting worse over time</td>
+                  <td><code>/compact</code> then <code>/clear</code> — context poisoning</td>
+                </tr>
+                <tr>
+                  <td>Claude is looping or stuck</td>
+                  <td><kbd>Esc</kbd> to interrupt → restart with a smaller, more specific task</td>
+                </tr>
+                <tr>
+                  <td>Wrong file being edited</td>
+                  <td>Check <code>.claude/CLAUDE.md</code> — likely a stale instruction pointing to old paths</td>
+                </tr>
+                <tr>
+                  <td>Permissions prompt every time</td>
+                  <td>Add patterns to <code>settings.json</code> <code>permissions.allow</code></td>
+                </tr>
+                <tr>
+                  <td>Claude Code crashes or won't start</td>
+                  <td><code>claude doctor</code> from the terminal (outside a session)</td>
+                </tr>
+                <tr>
+                  <td>Responses hallucinating file contents</td>
+                  <td>Use <code>@filepath</code> to make Claude re-read the actual current file</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>When to switch models</h3>
+            <p>Different models have different strengths:</p>
+            <ul>
+              <li><strong>Opus</strong> — best reasoning, slowest, most expensive. Use for architecture decisions, complex debugging.</li>
+              <li><strong>Sonnet</strong> — best balance. Use for most development tasks.</li>
+              <li><strong>Haiku</strong> — fastest, cheapest. Use for simple lookups, quick formatting, batch headless tasks.</li>
+            </ul>
+            <p>Switch mid-session: <code>/model sonnet</code></p>
+
+            <h3>Filing a bug</h3>
+            <p>If you've found a genuine Claude Code bug (not model quality, but the tool itself): type <code>/bug</code> in a session to open a pre-filled GitHub issue with your version and context automatically included.</p>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             17  PROMPTING CHEATSHEET
+        ───────────────────────────────────────────────── -->
+        <section id="cheatsheet" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Prompting Cheatsheet</h2>
+
+          <div class="section-body">
+            <p>Claude Code–specific habits. Each one saves tokens, time, or frustration.</p>
+
+            <div class="callout tip">
+              <span class="callout-label">New? Start with these 5</span>
+              Items 1, 3, 4, 6, and 12 are the highest leverage for beginners. The rest are for when you're comfortable.
+            </div>
+
+            <ol>
+              <li>
+                <strong>Use <code>@file</code> instead of pasting code.</strong>
+                <code>@src/auth.ts fix the bug</code> is far cheaper than pasting 500 lines. Claude reads the file directly — you don't bloat your message with raw code on every turn.
+              </li>
+              <li>
+                <strong>Use <code>#</code> to teach Claude mid-session.</strong>
+                Type <code># The auth module uses JWT, not sessions</code> — Claude remembers it for the rest of the session. For permanent rules, put them in CLAUDE.md instead.
+              </li>
+              <li>
+                <strong>Use plan mode when scope is unclear.</strong>
+                If you're not sure what needs to change, start in plan mode. Reviewing a plan costs nothing; undoing a wrong implementation does.
+              </li>
+              <li>
+                <strong><code>/clear</code> between unrelated tasks.</strong>
+                Don't carry context from "add dark mode" into "fix the auth bug". Each task deserves a fresh session.
+              </li>
+              <li>
+                <strong><code>/compact</code> instead of <code>/clear</code> when continuing.</strong>
+                Same task, session getting slow? Compact summarises the conversation and keeps the thread. <code>/clear</code> loses everything.
+              </li>
+              <li>
+                <strong>Put your rules in CLAUDE.md, not every prompt.</strong>
+                "Always use TypeScript strict mode" belongs in <code>.claude/CLAUDE.md</code>. It loads automatically every session — you never type it again.
+              </li>
+              <li>
+                <strong>Use the Explore subagent for investigations.</strong>
+                "Use the Explore agent to find all usages of this function" — the agent works read-only in isolation, keeping your main session's memory clean.
+              </li>
+              <li>
+                <strong>Never paste secrets into a prompt.</strong>
+                Don't paste API keys or passwords. Reference the file instead: <code>Use the credentials in .env to test the connection</code>.
+              </li>
+              <li>
+                <strong>Use <code>claude -p</code> for repeatable tasks.</strong>
+                Anything you'd run the same way twice should be a shell script or CI step: <code>claude -p "review this diff" --output-format json</code>. Not a manual session each time.
+              </li>
+              <li>
+                <strong>Use <code>--tools ""</code> for a read-only advisor session.</strong>
+                <code>claude --tools ""</code> gives Claude zero tool access — pure conversation. Useful for discussing architecture without any risk of file changes.
+              </li>
+              <li>
+                <strong>Check <code>/cost</code> on long sessions.</strong>
+                High cost usually means you're carrying too much context. Compact or restart. Haiku is 10–20× cheaper than Opus for simple tasks — switch with <code>/model haiku</code>.
+              </li>
+              <li>
+                <strong><kbd>Esc</kbd> <kbd>Esc</kbd> to fix your last prompt.</strong>
+                Spotted a typo after sending? Double-tap Esc to edit and re-submit instead of sending a correction message that adds more context noise.
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             18  QUICK REFERENCE
+        ───────────────────────────────────────────────── -->
+        <section id="reference" data-level="both">
+          <div class="section-meta both"><span class="pip"></span> Both levels</div>
+          <h2>Quick Reference</h2>
+
+          <div class="section-body">
+            <p>All CLI flags. Use <kbd>⌘ K</kbd> to search.</p>
+
+            <h3>Session control flags</h3>
+            <table class="table-compact">
+              <thead><tr><th>Flag</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-flag="-r / --resume"><td>-r, --resume [value]</td><td>Resume a prior session (opens picker if no value given)</td></tr>
+                <tr data-flag="-c / --continue"><td>-c, --continue</td><td>Continue the most recent session in the current directory</td></tr>
+                <tr data-flag="-w / --worktree"><td>-w, --worktree [name]</td><td>Create an isolated git worktree for this session</td></tr>
+                <tr data-flag="--name"><td>--name &lt;name&gt;</td><td>Set a display name for this session (makes /resume easier)</td></tr>
+                <tr data-flag="--fork-session"><td>--fork-session</td><td>Branch a new session from the current one</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Model &amp; performance flags</h3>
+            <table class="table-compact">
+              <thead><tr><th>Flag</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-flag="--model"><td>--model &lt;model&gt;</td><td>Set the model: <code>sonnet</code>, <code>opus</code>, <code>haiku</code></td></tr>
+                <tr data-flag="--effort"><td>--effort &lt;level&gt;</td><td>Effort level: <code>low</code>, <code>medium</code>, <code>high</code>, <code>xhigh</code>, <code>max</code></td></tr>
+                <tr data-flag="--fallback-model"><td>--fallback-model &lt;model&gt;</td><td>Auto-fallback if primary model is unavailable</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Permissions &amp; tools flags</h3>
+            <table class="table-compact">
+              <thead><tr><th>Flag</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-flag="--permission-mode"><td>--permission-mode &lt;mode&gt;</td><td>Set mode: <code>default</code> (ask each time), <code>plan</code> (plan first), <code>acceptEdits</code> (silent file edits), <code>auto</code> (auto-decide routine actions), <code>dontAsk</code> (minimal prompts), <code>bypassPermissions</code> (no prompts — sandbox only)</td></tr>
+                <tr data-flag="--tools"><td>--tools &lt;list&gt;</td><td>Restrict available tools: <code>Bash,Edit,Read</code> or <code>""</code> to disable all</td></tr>
+                <tr data-flag="--add-dir"><td>--add-dir &lt;paths&gt;</td><td>Whitelist additional directories for file access</td></tr>
+                <tr data-flag="--dangerously-skip-permissions"><td>--dangerously-skip-permissions</td><td>Bypass all permission checks (sandbox/CI only)</td></tr>
+                <tr data-flag="--allowed-tools"><td>--allowed-tools &lt;list&gt;</td><td>Whitelist specific tools</td></tr>
+                <tr data-flag="--disallowed-tools"><td>--disallowed-tools &lt;list&gt;</td><td>Blacklist specific tools</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Output &amp; headless flags</h3>
+            <table class="table-compact">
+              <thead><tr><th>Flag</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-flag="-p / --print"><td>-p, --print</td><td>Non-interactive (headless) mode — run and exit</td></tr>
+                <tr data-flag="--output-format"><td>--output-format &lt;fmt&gt;</td><td><code>text</code>, <code>json</code>, or <code>stream-json</code></td></tr>
+                <tr data-flag="--include-partial-messages"><td>--include-partial-messages</td><td>Show in-progress chunks in stream-json mode</td></tr>
+                <tr data-flag="--bare"><td>--bare</td><td>Minimal mode — skip hooks, LSP, plugins</td></tr>
+                <tr data-flag="-d / --debug"><td>-d, --debug [filter]</td><td>Enable debug logs</td></tr>
+                <tr data-flag="--debug-file"><td>--debug-file &lt;path&gt;</td><td>Write debug logs to a file</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Configuration flags</h3>
+            <table class="table-compact">
+              <thead><tr><th>Flag</th><th>What it does</th></tr></thead>
+              <tbody>
+                <tr data-flag="--mcp-config"><td>--mcp-config &lt;json&gt;</td><td>Add MCP servers inline for this session</td></tr>
+                <tr data-flag="--strict-mcp-config"><td>--strict-mcp-config</td><td>Only use the specified MCP servers (ignore saved ones)</td></tr>
+                <tr data-flag="--append-system-prompt"><td>--append-system-prompt &lt;text&gt;</td><td>Add to the default system prompt</td></tr>
+                <tr data-flag="--ide"><td>--ide</td><td>Auto-connect to a running VS Code or JetBrains IDE</td></tr>
+                <tr data-flag="--no-session-persistence"><td>--no-session-persistence</td><td>Don't save this session (headless use)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             SESSION FEEL DEMO  (embedded between shortcuts and subagents)
+        ───────────────────────────────────────────────── -->
+        <section id="demo-section" data-level="both" class="section-supplement">
+          <div class="section-meta both"><span class="pip"></span> Interactive</div>
+          <h2>Session Feel Demo</h2>
+          <p>Click a scenario to see the shell-side behaviour of Claude Code — what the UI actually does, without simulating model responses.</p>
+
+          <div class="demo">
+            <div class="demo-bar">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="demo-title">claude — my-project</span>
+            </div>
+            <div class="demo-screen" id="demo-screen" aria-live="polite" aria-label="Demo terminal output"></div>
+            <div class="demo-controls">
+              <button class="demo-btn" data-script="/help">/help</button>
+              <button class="demo-btn" data-script="shift+tab">Shift+Tab modes</button>
+              <button class="demo-btn" data-script="!ls">!ls (bash)</button>
+              <button class="demo-btn" data-script="#note"># session note</button>
+              <button class="demo-btn" data-script="@file">@file reference</button>
+              <button class="demo-btn" data-script="esc-esc">Esc Esc edit</button>
+            </div>
+            <div class="demo-disclaimer">
+              This demo shows <strong>shell-side behaviour only</strong> — what keys and commands do to the prompt and UI.
+              Model responses are not simulated.
+            </div>
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             QUIZ  (after workflows)
+        ───────────────────────────────────────────────── -->
+        <section id="quiz-section" data-level="both" class="section-supplement">
+          <div class="section-meta both"><span class="pip"></span> Interactive</div>
+          <h2>Which Tool For The Job?</h2>
+          <p>Pick the scenario that matches your need. Each answer maps to a specific Claude Code feature with a link to the relevant section.</p>
+
+          <div class="quiz" id="quiz-container">
+            <!-- populated by JS -->
+          </div>
+        </section>
+
+        <footer class="page-footer">
+          <p class="closing-note">I made this guide for myself to learn and master Claude Code in the terminal. Thought it might be useful for others too. Hope it helped you get started or pick up a few new tricks. Thank you for reading.</p>
+          <p>Claude Code Mastery Guide — generic content only, no plugin specifics. Sources: <code>claude --help</code>, changelog, official docs. Last updated June 2026.</p>
+          <p><a href="https://docs.anthropic.com/claude-code" target="_blank" rel="noopener">Official Claude Code docs ↗</a></p>
+        </footer>
+
+      </article>
+
+    </div><!-- .main -->
+  </div><!-- content column -->
+
+</div><!-- .app -->
+
+<!-- ═══════════════════════════════════════════════════════
+     CMD+K PALETTE
+═══════════════════════════════════════════════════════ -->
+<div id="palette-overlay"
+     class="palette-overlay"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Command palette"
+     aria-hidden="true">
+  <div class="palette">
+    <input
+      id="palette-input"
+      class="palette-input"
+      type="text"
+      placeholder="Search commands, shortcuts, sections…"
+      autocomplete="off"
+      spellcheck="false"
+      role="combobox"
+      aria-expanded="true"
+      aria-controls="palette-results"
+      aria-autocomplete="list"
+    >
+    <ul id="palette-results" class="palette-results" role="listbox"></ul>
+    <div id="palette-empty" class="palette-empty" hidden>
+      <div>No results in this level.</div>
+      <button id="palette-show-all">Show all results</button>
+    </div>
+    <div class="palette-footer">
+      <span><kbd>↑↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> jump to</span>
+      <span><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
