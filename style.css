@@ -183,6 +183,26 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
 .sidebar-nav .nav-tag.adv { color: var(--accent); border-color: var(--accent); }
 .sidebar-nav .nav-tag.beg { color: var(--green); border-color: var(--green); }
 
+.sidebar-credit {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-soft);
+}
+.sidebar-credit a {
+  display: block;
+  padding: 0.24rem 0.5rem;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  text-decoration: none;
+  border: 0;
+  border-radius: 6px;
+  transition: color 120ms ease, background 120ms ease;
+}
+.sidebar-credit a:hover {
+  color: var(--text);
+  background: var(--bg-elev-2);
+}
+
 /* Topbar brand */
 .topbar-brand {
   display: flex;
