@@ -101,21 +101,20 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
 .app {
   display: grid;
   grid-template-columns: calc(var(--sidebar-w) + 24px) 1fr;
-  min-height: 100vh;
 }
 
 .sidebar {
   position: sticky;
-  top: 50%;
-  transform: translateY(-50%);
-  height: auto;
-  max-height: calc(100vh - 48px);
+  top: 70px;
+  align-self: start;
+  height: fit-content;
+  max-height: calc(100vh - 90px);
   overflow-y: auto;
   border: 1px solid var(--border-soft);
   border-radius: 16px;
   background: var(--bg-elev);
-  padding: 0.7rem 0.6rem;
-  margin: 0 0 0 12px;
+  padding: 0.6rem 0.6rem;
+  margin: 12px 0 12px 12px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -762,17 +761,17 @@ tr:hover td { background: var(--bg-elev); }
   .app { grid-template-columns: 1fr; }
   .sidebar {
     position: fixed;
-    top: 50%; left: 12px;
+    top: 70px; left: 12px;
     width: 220px;
-    height: auto;
-    max-height: calc(100vh - 48px);
+    height: fit-content;
+    max-height: calc(100vh - 90px);
     z-index: 50;
     margin: 0;
-    transform: translate(calc(-100% - 12px), -50%);
+    transform: translateX(calc(-100% - 12px));
     transition: transform 200ms ease;
     box-shadow: var(--shadow);
   }
-  .app[data-sidebar="open"] .sidebar { transform: translate(0, -50%); }
+  .app[data-sidebar="open"] .sidebar { transform: translateX(0); }
   .topbar { padding: 0.6rem 1rem; }
   .main { padding: 1rem 1rem 1.5rem; }
   .menu-btn { display: grid; }
