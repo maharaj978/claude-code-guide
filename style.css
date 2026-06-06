@@ -264,7 +264,7 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
    Main content area
    ============================================================ */
 .main {
-  padding: 1.5rem 2rem 6rem;
+  padding: 1.5rem 2rem 2rem;
   max-width: 1020px;
   margin: 0 auto;
 }
@@ -777,7 +777,7 @@ tr:hover td { background: var(--bg-elev); }
   }
   .app[data-sidebar="open"] .sidebar { transform: translateX(0); }
   .topbar { padding: 0.6rem 1rem; }
-  .main { padding: 1rem 1rem 4rem; }
+  .main { padding: 1rem 1rem 1.5rem; }
   .menu-btn { display: grid; }
 }
 .menu-btn {
@@ -820,8 +820,9 @@ tr:hover td { background: var(--bg-elev); }
 @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
 
 footer.page-footer {
-  margin-top: 4rem;
-  padding-top: 2rem;
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.5rem;
   border-top: 1px solid var(--border-soft);
   font-size: 0.85rem;
   color: var(--text-faint);
