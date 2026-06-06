@@ -99,14 +99,21 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
    Layout
    ============================================================ */
 .app {
-  display: grid;
-  grid-template-columns: calc(var(--sidebar-w) + 24px) 1fr;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-body {
+  position: relative;
+  padding-left: calc(var(--sidebar-w) + 24px);
 }
 
 .sidebar {
-  position: sticky;
-  top: 70px;
-  align-self: start;
+  position: fixed;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  width: var(--sidebar-w);
   height: fit-content;
   max-height: calc(100vh - 90px);
   overflow-y: auto;
@@ -114,10 +121,10 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
   border-radius: 16px;
   background: var(--bg-elev);
   padding: 0.6rem 0.6rem;
-  margin: 12px 0 12px 12px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 30;
 }
 [data-theme="light"] .sidebar {
   box-shadow: 0 4px 16px rgba(140, 149, 159, 0.15);
@@ -196,12 +203,12 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
-  padding: 0.7rem 2rem;
+  padding: 0.7rem 1.5rem;
   background: rgba(13, 17, 23, 0.85);
   backdrop-filter: saturate(140%) blur(8px);
   border-bottom: 1px solid var(--border-soft);
@@ -758,20 +765,20 @@ tr:hover td { background: var(--bg-elev); }
    Responsive
    ============================================================ */
 @media (max-width: 900px) {
-  .app { grid-template-columns: 1fr; }
+  .app-body { padding-left: 0; }
   .sidebar {
     position: fixed;
-    top: 70px; left: 12px;
+    top: 50%;
+    left: 12px;
     width: 220px;
     height: fit-content;
     max-height: calc(100vh - 90px);
     z-index: 50;
-    margin: 0;
-    transform: translateX(calc(-100% - 12px));
+    transform: translate(calc(-100% - 24px), -50%);
     transition: transform 200ms ease;
     box-shadow: var(--shadow);
   }
-  .app[data-sidebar="open"] .sidebar { transform: translateX(0); }
+  .app[data-sidebar="open"] .sidebar { transform: translate(0, -50%); }
   .topbar { padding: 0.6rem 1rem; }
   .main { padding: 1rem 1rem 1.5rem; }
   .menu-btn { display: grid; }
