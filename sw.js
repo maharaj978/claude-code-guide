@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v2025060608';
+const CACHE_VERSION = 'v2025060609';
 const ASSETS = ['/', '/index.html', '/style.css', '/app.js'];
 
 self.addEventListener('install', e => {
