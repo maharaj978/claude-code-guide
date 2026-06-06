@@ -8,7 +8,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <link rel="stylesheet" href="style.css?v=2025060603">
+  <link rel="stylesheet" href="style.css?v=2025060604">
   <!-- Inline SVG favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff6b35'/><text x='7' y='23' font-family='monospace' font-weight='bold' font-size='18' fill='white'>C</text></svg>">
 </head>
@@ -19,14 +19,6 @@
        SIDEBAR
   ═══════════════════════════════════════════════════════ -->
   <aside class="sidebar" role="navigation" aria-label="Page sections">
-    <div class="sidebar-header">
-      <div class="sidebar-logo" aria-hidden="true">C</div>
-      <div>
-        <div class="sidebar-title">Claude Code</div>
-        <div class="sidebar-subtitle">Interactive Guide</div>
-      </div>
-    </div>
-
     <ul class="sidebar-nav" role="list">
       <li><a href="#welcome"><span class="nav-num">01</span> Welcome</a></li>
       <li><a href="#getting-started" data-level="beginner"><span class="nav-num">02</span> Getting Started</a></li>
@@ -49,9 +41,6 @@
       <li><a href="#power-tips"><span class="nav-num">19</span> Power Tips</a></li>
     </ul>
 
-    <div class="sidebar-footer">
-      by <a href="https://www.linkedin.com/in/maharajma/" target="_blank" rel="noopener">Maharaj</a>
-    </div>
   </aside>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -61,6 +50,10 @@
     <!-- Top bar -->
     <header class="topbar" role="banner">
       <button class="menu-btn" id="menu-btn" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <div class="topbar-brand">
+        <div class="sidebar-logo" aria-hidden="true">C</div>
+        <span class="topbar-title">Claude Code</span>
+      </div>
       <span class="cmdk-hint">
         <kbd>⌘ K</kbd> to search anything
       </span>
@@ -1496,7 +1489,7 @@ rank by urgency, output as markdown table"
   </div>
 </div>
 
-<script src="app.js?v=2025060603"></script>
+<script src="app.js?v=2025060604"></script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/claude-code-guide/sw.js').then(reg => {

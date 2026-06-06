@@ -106,14 +106,16 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
 
 .sidebar {
   position: sticky;
-  top: 12px;
-  height: calc(100vh - 24px);
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
+  max-height: calc(100vh - 48px);
   overflow-y: auto;
   border: 1px solid var(--border-soft);
   border-radius: 16px;
   background: var(--bg-elev);
-  padding: 1rem 0.75rem 1.5rem;
-  margin: 12px 0 12px 12px;
+  padding: 0.7rem 0.6rem;
+  margin: 0 0 0 12px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -122,23 +124,14 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
   box-shadow: 0 4px 16px rgba(140, 149, 159, 0.15);
 }
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.2rem 0.4rem 0.7rem;
-  border-bottom: 1px solid var(--border-soft);
-  margin-bottom: 0.5rem;
-}
 .sidebar-logo {
   width: 24px; height: 24px;
   border-radius: 6px;
   background: var(--accent);
   display: grid; place-items: center;
   color: #fff; font-family: var(--font-mono); font-weight: 700; font-size: 12px;
+  flex-shrink: 0;
 }
-.sidebar-title { font-weight: 600; font-size: 0.82rem; letter-spacing: -0.01em; }
-.sidebar-subtitle { font-size: 0.65rem; color: var(--text-faint); margin-top: 1px; }
 
 .sidebar-nav { list-style: none; padding: 0; margin: 0; }
 .sidebar-nav li { margin: 0; }
@@ -184,15 +177,19 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
 .sidebar-nav .nav-tag.adv { color: var(--accent); border-color: var(--accent); }
 .sidebar-nav .nav-tag.beg { color: var(--green); border-color: var(--green); }
 
-.sidebar-footer {
-  margin-top: auto;
-  padding: 0.7rem 0.5rem 0;
-  border-top: 1px solid var(--border-soft);
-  font-size: 0.7rem;
-  color: var(--text-faint);
+/* Topbar brand */
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-right: auto;
 }
-.sidebar-footer a { color: var(--text-faint); border-bottom: none; }
-.sidebar-footer a:hover { color: var(--text-soft); border-bottom: 1px solid var(--text-faint); }
+.topbar-title {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
 
 /* ============================================================
    Top bar (controls)
@@ -218,7 +215,6 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-right: auto;
 }
 .cmdk-hint kbd { font-size: 0.72rem; padding: 1px 5px; }
 
@@ -766,16 +762,17 @@ tr:hover td { background: var(--bg-elev); }
   .app { grid-template-columns: 1fr; }
   .sidebar {
     position: fixed;
-    top: 12px; left: 12px;
-    width: 240px;
-    height: calc(100vh - 24px);
+    top: 50%; left: 12px;
+    width: 220px;
+    height: auto;
+    max-height: calc(100vh - 48px);
     z-index: 50;
     margin: 0;
-    transform: translateX(calc(-100% - 12px));
+    transform: translate(calc(-100% - 12px), -50%);
     transition: transform 200ms ease;
     box-shadow: var(--shadow);
   }
-  .app[data-sidebar="open"] .sidebar { transform: translateX(0); }
+  .app[data-sidebar="open"] .sidebar { transform: translate(0, -50%); }
   .topbar { padding: 0.6rem 1rem; }
   .main { padding: 1rem 1rem 1.5rem; }
   .menu-btn { display: grid; }
