@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claude Code — Learn it from scratch to power user</title>
   <meta name="description" content="A hands-on guide to Claude Code — the official terminal CLI. Go from first command to advanced multi-agent workflows, with interactive examples.">
-  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="style.css?v=2025060601">
   <!-- Inline SVG favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff6b35'/><text x='7' y='23' font-family='monospace' font-weight='bold' font-size='18' fill='white'>C</text></svg>">
 </head>
@@ -1493,6 +1496,18 @@ rank by urgency, output as markdown table"
   </div>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=2025060601"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/claude-code-guide/sw.js').then(reg => {
+    reg.addEventListener('updatefound', () => {
+      const newSW = reg.installing;
+      newSW.addEventListener('statechange', () => {
+        if (newSW.state === 'activated') window.location.reload();
+      });
+    });
+  });
+}
+</script>
 </body>
 </html>
