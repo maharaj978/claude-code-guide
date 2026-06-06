@@ -43,6 +43,7 @@
       <li><a href="#debugging"><span class="nav-num">16</span> Debugging Claude Code</a></li>
       <li><a href="#cheatsheet"><span class="nav-num">17</span> Prompting Cheatsheet</a></li>
       <li><a href="#reference"><span class="nav-num">18</span> Quick Reference</a></li>
+      <li><a href="#power-tips"><span class="nav-num">19</span> Power Tips</a></li>
     </ul>
 
     <div class="sidebar-footer">
@@ -1294,6 +1295,153 @@ review:
 
           <div class="quiz" id="quiz-container">
             <!-- populated by JS -->
+          </div>
+        </section>
+
+        <!-- ─────────────────────────────────────────────────
+             POWER TIPS
+        ───────────────────────────────────────────────── -->
+        <section id="power-tips" data-level="both" class="section-supplement">
+          <div class="section-meta both"><span class="pip"></span> Power Tips</div>
+          <h2>Power Tips — Things You Can Say</h2>
+          <p>Powerful, slightly uncommon prompts that unlock Claude Code's full potential. Each one is copy-pasteable.</p>
+
+          <div class="tips-grid">
+
+            <div class="tip-card" data-tip-category="parallel">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Parallel Work</span>
+                <pre class="tip-prompt"><code>Spawn two agents in parallel:
+1. Refactor the auth module to use async/await
+2. Write integration tests for the current auth flow</code></pre>
+                <p class="tip-why">Both agents run simultaneously in isolation. You get a refactored module <em>and</em> tests — without merge conflicts between the two tasks.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="constraint">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Test-Driven</span>
+                <pre class="tip-prompt"><code>Here's a failing test. Make it pass
+without changing the test file itself.</code></pre>
+                <p class="tip-why">Forces Claude to work backwards from a spec. The implementation bends to the test, not the other way around — exactly how TDD should work.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="vision">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Vision Input</span>
+                <pre class="tip-prompt"><code>[paste screenshot of error]
+Read this error and fix it. The stack trace
+points to src/db/connection.ts.</code></pre>
+                <p class="tip-why">Claude reads images natively. Paste a terminal screenshot, a browser error, or a design mockup — no need to retype anything.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="advisory">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Advisory Mode</span>
+                <pre class="tip-prompt"><code>Don't write any code yet. Just explain what
+you'd change, which files, and why. I'll
+decide whether to proceed.</code></pre>
+                <p class="tip-why">Separates analysis from execution. You get Claude's full reasoning without committing to changes — perfect for unfamiliar codebases.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="persona">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Persona Prompt</span>
+                <pre class="tip-prompt"><code>Review this diff as a senior engineer who
+hates over-engineering. Be blunt. Flag
+anything that adds complexity without
+clear value.</code></pre>
+                <p class="tip-why">Persona prompting activates different evaluation criteria. "Senior who hates over-engineering" catches abstractions-for-the-sake-of-abstractions that a generic review misses.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="git">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Git-Aware</span>
+                <pre class="tip-prompt"><code>Summarize what changed in the last 5 commits.
+Then suggest what to work on next based on
+the patterns you see.</code></pre>
+                <p class="tip-why">Claude reads git history natively. It spots momentum (what you've been building), gaps (what's unfinished), and opportunities — better than scanning logs yourself.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="scope">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Scoped Refactor</span>
+                <pre class="tip-prompt"><code>Find every file that imports from
+@utils/legacy. Migrate each one to use
+@utils/v2 instead. Don't touch tests.</code></pre>
+                <p class="tip-why">Codebase-wide refactors with explicit boundaries. Claude handles the tedious find-and-replace across dozens of files while respecting your constraints.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="workflow">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Inline Rule</span>
+                <pre class="tip-prompt"><code># Every time you edit a file, run the
+# relevant test file afterwards and
+# show me the output.</code></pre>
+                <p class="tip-why">Session notes (<code>#</code> prefix) set persistent rules. This one creates an edit→test loop for the whole session — instant feedback without remembering to ask.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="ship">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Ship It</span>
+                <pre class="tip-prompt"><code>Create a PR for this branch. Title should
+reference the Jira ticket PROJ-421. Include
+a test plan with steps a reviewer can follow.</code></pre>
+                <p class="tip-why">Claude writes the PR title, description, and test plan — then creates it via <code>gh</code>. Structured PRs in seconds instead of 10 minutes of markdown writing.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="escape">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Escape Hatch</span>
+                <pre class="tip-prompt"><code>You're going in the wrong direction. Stop.
+Reread @src/api/routes.ts and start over
+with a simpler approach — no abstractions.</code></pre>
+                <p class="tip-why">Claude responds to course corrections mid-task. Be direct. "Stop" + "start over" + explicit constraints is faster than letting a bad approach continue.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="multifile">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">Multi-File Context</span>
+                <pre class="tip-prompt"><code>@src/types.ts @src/api/handler.ts
+@src/db/queries.ts
+The types, handler, and DB layer are out of
+sync. Align them to the types file as source
+of truth.</code></pre>
+                <p class="tip-why">Multiple <code>@file</code> references in one prompt. Claude sees all three files together and reconciles inconsistencies — a common real-world refactoring need.</p>
+              </div>
+            </div>
+
+            <div class="tip-card" data-tip-category="headless">
+              <div class="tip-card-glow"></div>
+              <div class="tip-card-content">
+                <span class="tip-badge">One-Shot Script</span>
+                <pre class="tip-prompt"><code>claude -p "Find all TODO comments in src/,
+rank by urgency, output as markdown table"
+--output-format text > todos.md</code></pre>
+                <p class="tip-why">Non-interactive one-shot piped to a file. Perfect for daily reports, pre-commit checks, or CI steps. No session, no prompts — just run and capture output.</p>
+              </div>
+            </div>
+
           </div>
         </section>
 

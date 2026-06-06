@@ -832,6 +832,150 @@ footer.page-footer {
   margin-top: 2.5rem;
 }
 
+/* ============================================================
+   Power Tips — animated cards
+   ============================================================ */
+.tips-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.tip-card {
+  position: relative;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.tip-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tip-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.15), inset 0 0 0 1px rgba(255, 107, 53, 0.1);
+}
+[data-theme="light"] .tip-card:hover {
+  box-shadow: 0 4px 20px rgba(217, 72, 15, 0.12), inset 0 0 0 1px rgba(217, 72, 15, 0.08);
+}
+
+/* Animated glow on hover */
+.tip-card-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--accent-bg) 60deg,
+    transparent 120deg
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: tip-glow-spin 4s linear infinite;
+  pointer-events: none;
+}
+.tip-card:hover .tip-card-glow {
+  opacity: 1;
+}
+@keyframes tip-glow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.tip-card-content {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-elev);
+  border-radius: calc(var(--radius-lg) - 1px);
+  padding: 1.1rem 1.3rem;
+  margin: 1px;
+}
+
+.tip-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-bottom: 0.7rem;
+}
+
+.tip-prompt {
+  margin: 0.5rem 0 0.7rem;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.tip-prompt code {
+  color: var(--green);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  white-space: pre-wrap;
+}
+
+.tip-why {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+.tip-why em {
+  color: var(--text);
+  font-style: normal;
+  font-weight: 500;
+}
+.tip-why code {
+  font-size: 0.82em;
+}
+
+/* Stagger the entrance animation */
+.tip-card:nth-child(1)  { transition-delay: 0.00s; }
+.tip-card:nth-child(2)  { transition-delay: 0.06s; }
+.tip-card:nth-child(3)  { transition-delay: 0.12s; }
+.tip-card:nth-child(4)  { transition-delay: 0.18s; }
+.tip-card:nth-child(5)  { transition-delay: 0.24s; }
+.tip-card:nth-child(6)  { transition-delay: 0.30s; }
+.tip-card:nth-child(7)  { transition-delay: 0.36s; }
+.tip-card:nth-child(8)  { transition-delay: 0.42s; }
+.tip-card:nth-child(9)  { transition-delay: 0.48s; }
+.tip-card:nth-child(10) { transition-delay: 0.54s; }
+.tip-card:nth-child(11) { transition-delay: 0.60s; }
+.tip-card:nth-child(12) { transition-delay: 0.66s; }
+
+@media (min-width: 700px) {
+  .tips-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tip-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .tip-card-glow {
+    display: none;
+  }
+}
+
 /* visible focus for accessibility */
 :focus-visible {
   outline: 2px solid var(--accent);
