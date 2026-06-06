@@ -189,7 +189,9 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
   border-top: 1px solid var(--border-soft);
 }
 .sidebar-credit a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   padding: 0.24rem 0.5rem;
   font-size: 0.72rem;
   color: var(--text-faint);
@@ -201,6 +203,10 @@ hr { border: 0; border-top: 1px solid var(--border-soft); margin: 2rem 0; }
 .sidebar-credit a:hover {
   color: var(--text);
   background: var(--bg-elev-2);
+}
+.sidebar-credit .credit-heart {
+  font-size: 0.7em;
+  line-height: 1;
 }
 
 /* Topbar brand */
